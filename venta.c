@@ -158,14 +158,29 @@ void crearVenta(){
     tproducto prod, aux;
 
     printf("VENTA\n");
-
-    int ultimoID = 0;
-    while (fscanf(archVentas, "\n%i %s %s\n", &venta.codigo, venta.fecha, venta.nombreC) == 3){
-        ultimoID = venta.codigo;
-    }
-    printf("venta.codigo = %d\n",venta.codigo);
+    int ultimo = 0;
+    char ultimoID[3];
+    strcpy(ultimoID,"0");
+        char ventaCodigoAux[3];
     printf("ultimoID = %d\n",ultimoID);
-    venta.codigo = ultimoID + 1;
+        
+    while (!feof(archVentas)){
+        //while(fscanf(archVentas, "%i", &venta.codigo)==1){
+        fscanf(archVentas, "%i", &venta.codigo);
+        memset(ventaCodigoAux,0x00,sizeof(ventaCodigoAux));
+        sprintf(ventaCodigoAux,"_%d_",venta.codigo);
+        printf("ventaCodigoAux = %s\n",ventaCodigoAux);
+    }
+        if (memcmp(ventaCodigoAux,ultimoID,strlen(ventaCodigoAux)!=0)){
+            memcpy(ultimoID,ventaCodigoAux,strlen(ventaCodigoAux));
+            printf("ultimoID = %s\n",ultimoID);
+            printf("entra\n");
+        }
+            
+    //}
+    //printf("venta.codigo = %d\n",venta.codigo);
+    printf("ultimoID2 = %s\n",ultimoID);
+    //venta.codigo = ultimoID + 1;
 
     fflush(stdin);
     memset(venta.fecha, 0x00, sizeof(venta.fecha));
@@ -183,7 +198,7 @@ void crearVenta(){
         return;
     }
 
-    fprintf(archVentas, "\n%i %s %s\n", venta.codigo, venta.fecha, venta.nombreC);
+    fprintf(archVentas, "\n_%i_ %s %s\n", venta.codigo, venta.fecha, venta.nombreC);
 
     char llevarOtroProducto;
     int band = 1;
@@ -264,7 +279,7 @@ void crearVenta(){
 
     fclose(archProducto);
     fclose(archVentas);
-    LIMPIAR
+    //LIMPIAR
     return;
 }
 
