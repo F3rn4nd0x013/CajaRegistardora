@@ -137,9 +137,7 @@ void listadoProductos()
     while (!feof(arch))
     {
         fscanf(arch, "%i %s %f %f\n", &producto.id, &producto.nombre, &producto.precio, &producto.cant);
-
         if(producto.cant <= 0) continue;
-
         printf("%i %s %.f %.f\n", producto.id, producto.nombre, producto.precio, producto.cant);
     }
 
