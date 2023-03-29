@@ -14,7 +14,7 @@ void crearVenta(){
     }
 
     // Abrir el archivo de destino en modo de escritura
-    FILE *archVentas = fopen("ventas.txt", "r");
+    FILE *archVentas = fopen("ventas.txt", "r+t");
     if (archVentas == NULL){
         archVentas = fopen("ventas.txt", "a+t");
         if (archVentas == NULL){
@@ -26,15 +26,6 @@ void crearVenta(){
             fseek(archVentas, 0, SEEK_END);
         }
     }
-   /*  // Abrir el archivo de destino en modo de escritura
-    FILE *archVentas = fopen("ventas.txt", "a+t");
-    tproducto producto;
-    if (archVentas == NULL){
-        printf("no hay ventas registradas\n");
-        system("pause");
-        LIMPIAR
-        return;
-    } */
 
     int cantPro = 0;
     int codigo;
@@ -45,40 +36,14 @@ void crearVenta(){
 
     printf("VENTA\n");
 
-    //fseek(archVentas, 0, SEEK_SET);
     int ultimoID = 0;
     while (fscanf(archVentas, "%d %s %s", &venta.codigo, venta.fecha, venta.nombreC) == 3){
-        printf("Entra\n");
-        printf("venta.nombreC = %s\n",venta.nombreC);
-        printf("venta.codigo = %d\n",venta.codigo);
         ultimoID = venta.codigo;
     }
     ultimoID++;
     venta.codigo = ultimoID;
     printf("ID = %d\n", venta.codigo);
     printf("sig ID = %d\n", ultimoID);
-
-    /*int ultimo = 0;
-    char ultimoID[4]; // Agrega un espacio extra para el carácter nulo
-    strcpy(ultimoID, "0");
-    char ventaCodigoAux[4];              // Agrega un espacio extra para el carácter nulo
-    printf("ultimoID = %s\n", ultimoID); // Usa %s para imprimir cadenas
-
-    while (fscanf(archVentas, "%i", &venta.codigo) == 1)
-    {
-        sprintf(ventaCodigoAux, "_%d_", venta.codigo);
-        printf("ventaCodigoAux = %s\n", ventaCodigoAux);
-
-        if (strcmp(ventaCodigoAux, ultimoID) != 0)
-        { // Compara cadenas con strcmp
-            strcpy(ultimoID, ventaCodigoAux);
-            printf("ultimoID = %s\n", ultimoID);
-            printf("entra\n");
-        }
-    }
-
-    printf("ultimoID2 = %s\n", ultimoID);
-    venta.codigo = ultimoID + 1; // Esta línea no es necesaria*/
 
     fflush(stdin);
     memset(venta.fecha, 0x00, sizeof(venta.fecha));
